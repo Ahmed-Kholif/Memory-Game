@@ -10,6 +10,8 @@ let duration = 1000;
 
 let minutes = 1;
 
+let minutesText = "minute"
+
 let triesNumber = 10;
 
 let tries = document.querySelector( ".tries span" );
@@ -24,7 +26,7 @@ let orderRange = [...Array( gameBlocks.length ).keys()];
 
 document.querySelector( ".controls span" ).onclick = () => {
 
-    let theName = prompt( "What is your name ?" );
+    let theName = prompt( "What is your name?" );
 
     if ( theName === null || theName === "" )
     {
@@ -60,7 +62,7 @@ document.querySelector( ".controls span" ).onclick = () => {
 
     timeDiv.classList.add( "time-div" );
 
-    timeDiv.prepend( document.createTextNode( `You have ${minutes} minutes!` ) );
+    timeDiv.prepend( document.createTextNode( `You have ${minutes} ${minutesText}!` ) );
 
     let triesDiv = document.createElement( "div" );
 
@@ -222,34 +224,20 @@ document.querySelector( ".controls span" ).onclick = () => {
         if (localName !== null && localWrongs !== null && localTimeMinutes !== null && localTimeSeconds !== null) {
 
             let infoConatiner = document.createElement( "div" );
-    
+
             infoConatiner.classList.add( "game-info" );
-    
+
             let nameDiv = document.createElement( "div" );
-    
+
             nameDiv.classList.add( "name" );
-    
-            nameDiv.appendChild( document.createTextNode( "Hello: " ) );
-    
-            let spanName = document.createElement( "span" );
-    
-            spanName.appendChild( document.createTextNode( localName ) );
-    
-            let triesDiv = document.createElement( "div" );
-    
-            triesDiv.classList.add( "tries" );
-    
-            triesDiv.appendChild( document.createTextNode( "Wrong tries: " ) );
-    
-            let spanTries = document.createElement( "span" );
-    
-            spanTries.appendChild( document.createTextNode( localWrongs ) );
-    
+
+            nameDiv.appendChild( document.createTextNode( `Hello ${ localName }, you won with ${ localWrongs } wrong tries` ) );
+        
             let timeDiv = document.createElement( "div" );
-    
+
             timeDiv.classList.add( "time-div" );
 
-            timeDiv.appendChild(document.createTextNode("Time: "))
+            timeDiv.appendChild(document.createTextNode("The time was: "))
 
             let timeSpanMinutes = document.createElement( "span" );
 
@@ -267,21 +255,13 @@ document.querySelector( ".controls span" ).onclick = () => {
 
             timeDiv.appendChild( timeSpanSeconds );
 
-            nameDiv.appendChild( spanName );
-    
             infoConatiner.appendChild( nameDiv );
 
-            triesDiv.appendChild( spanTries );
-    
-            infoConatiner.appendChild( triesDiv );
-    
             infoConatiner.appendChild( timeDiv );
-    
-            document.body.appendChild( infoConatiner );
-    
-        };
-    
 
+            document.querySelector( ".container" ).appendChild( infoConatiner );
+
+        };
     } );
 };
 
