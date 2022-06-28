@@ -12,11 +12,15 @@ let minutes = 1;
 
 let minutesText = "minute"
 
+if (minutes > 1) {
+
+    minutesText = "minutes";
+
+}
+
 let triesNumber = 10;
 
 let tries = document.querySelector( ".tries span" );
-
-let decreased;
 
 let gameContainer = document.querySelector( ".game-container" );
 
@@ -33,15 +37,21 @@ document.querySelector( ".controls span" ).onclick = () => {
 
         document.querySelector( ".game-info .name span" ).innerHTML = "Unknown";
 
-        localStorage.setItem( "name", "Unknown" );
+        if ( gameBlocks.every( block => block.classList.contains( "matched" ) ) ) {
 
-    } else
-    {
+            localStorage.setItem( "name", "Unknown" );
+
+        }
+
+    } else {
 
         document.querySelector( ".game-info .name span" ).innerHTML = theName;
 
-        localStorage.setItem( "name", theName );
+        if ( gameBlocks.every( block => block.classList.contains( "matched" ) ) ) {
 
+            localStorage.setItem( "name", theName );
+
+        };
     };
 
     document.querySelector( ".controls" ).remove();
@@ -146,9 +156,7 @@ document.querySelector( ".controls span" ).onclick = () => {
 
                     secondsSpan.innerHTML = parseInt( secondsSpan.innerHTML ) - 1;
 
-                    decreased = true;
-
-                    if ( secondsSpan.innerHTML === "0" && decreased === true)
+                    if ( secondsSpan.innerHTML === "0" )
                     {
 
                         let setBoth = setTimeout( () => {
@@ -213,6 +221,15 @@ document.querySelector( ".controls span" ).onclick = () => {
 
                         localStorage.setItem( "timeSeconds", secondsSpan.innerHTML );
 
+                        if ( theName === null || theName === "" ) {
+
+                            localStorage.setItem( "name", "Unknown" );
+
+                        } else {
+
+                            localStorage.setItem( "name", theName );
+
+                        };
                     };
 
                 }, duration );
@@ -232,7 +249,7 @@ document.querySelector( ".controls span" ).onclick = () => {
             nameDiv.classList.add( "name" );
 
             nameDiv.appendChild( document.createTextNode( `Hello ${ localName }, you won with ${ localWrongs } wrong tries` ) );
-        
+
             let timeDiv = document.createElement( "div" );
 
             timeDiv.classList.add( "time-div" );
@@ -261,7 +278,7 @@ document.querySelector( ".controls span" ).onclick = () => {
 
             document.querySelector( ".container" ).appendChild( infoConatiner );
 
-        };
+        }
     } );
 };
 
@@ -467,6 +484,11 @@ function randomingOrder(arr) {
 
     return arr;
 };
+
+
+
+
+
 
 
 
